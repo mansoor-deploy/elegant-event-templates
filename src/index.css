@@ -1,3 +1,12 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -97,5 +106,125 @@
 
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom template styles */
+@layer components {
+  /* Luxe Embrace styles */
+  .luxe-heading {
+    @apply font-['Playfair_Display'] font-bold tracking-tight;
+  }
+  
+  .luxe-subheading {
+    @apply font-['Montserrat'] font-light tracking-wider uppercase;
+  }
+  
+  .luxe-body {
+    @apply font-['Montserrat'] leading-relaxed;
+  }
+  
+  .luxe-button {
+    @apply bg-luxe-gold text-white font-['Montserrat'] uppercase tracking-widest font-semibold
+           px-8 py-3 rounded-sm transition-all duration-300
+           hover:shadow-lg hover:brightness-110 active:brightness-90;
+  }
+  
+  .luxe-shimmer {
+    @apply bg-gradient-to-r from-luxe-gold via-[#F9F295] to-luxe-gold bg-[length:200%_100%] animate-shimmer;
+  }
+  
+  .luxe-card {
+    @apply bg-white/80 backdrop-blur-sm border border-luxe-gold/20 rounded p-6 shadow-md transition-all duration-300;
+  }
+  
+  /* Vintage Affair styles */
+  .vintage-grain {
+    @apply before:content-[''] before:absolute before:inset-0 before:bg-[url('/images/noise.png')] 
+           before:opacity-[0.03] before:bg-repeat before:animate-grain before:pointer-events-none before:z-[1];
+  }
+  
+  .vintage-heading {
+    @apply font-['Cormorant_Garamond'] font-bold;
+  }
+  
+  .vintage-subheading {
+    @apply font-['Dancing_Script'] text-vintage-sepia;
+  }
+  
+  .vintage-body {
+    @apply font-['Lato'] leading-relaxed;
+  }
+  
+  .vintage-button {
+    @apply bg-vintage-sepia text-vintage-cream font-['Lato'] py-2 px-6 rounded transition-all duration-300
+           hover:shadow-md hover:bg-opacity-90 active:bg-opacity-100;
+  }
+  
+  .vintage-card {
+    @apply bg-vintage-paper bg-opacity-90 backdrop-blur-xs border border-vintage-sepia/20 rounded-sm p-6 shadow-md;
+  }
+  
+  /* Celestial Union styles */
+  .celestial-heading {
+    @apply font-['Quicksand'] font-bold tracking-tight;
+  }
+  
+  .celestial-subheading {
+    @apply font-['Montserrat'] font-light tracking-wider uppercase;
+  }
+  
+  .celestial-body {
+    @apply font-['Quicksand'] leading-relaxed;
+  }
+  
+  .celestial-button {
+    @apply bg-celestial-purple text-white font-['Montserrat'] py-2 px-6 rounded-full transition-all duration-300
+           hover:shadow-[0_0_15px_rgba(155,135,245,0.7)] hover:brightness-110 active:brightness-90;
+  }
+  
+  .celestial-card {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-6 shadow-lg;
+  }
+  
+  .celestial-glow {
+    @apply relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-celestial-blue/40
+           before:to-celestial-purple/40 before:blur-xl before:opacity-70 before:-z-10;
+  }
+  
+  /* Mystic Whisper styles */
+  .mystic-heading {
+    @apply font-['Playfair_Display'] font-bold tracking-tight;
+  }
+  
+  .mystic-subheading {
+    @apply font-['Great_Vibes'] text-2xl;
+  }
+  
+  .mystic-body {
+    @apply font-['Lato'] leading-relaxed;
+  }
+  
+  .mystic-button {
+    @apply bg-mystic-purple text-white font-['Montserrat'] py-2 px-6 rounded-md transition-all duration-300
+           hover:shadow-[0_0_15px_rgba(155,141,224,0.7)] hover:brightness-110 active:brightness-90;
+  }
+  
+  .mystic-card {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-6 shadow-lg;
+  }
+  
+  .mystic-glow {
+    @apply relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-mystic-purple/20
+           before:to-mystic-midnight/20 before:blur-xl before:opacity-80 before:-z-10;
+  }
+  
+  .page-transition {
+    @apply transition-opacity duration-500 ease-in-out opacity-0;
+  }
+  
+  .page-transition.show {
+    @apply opacity-100;
   }
 }
