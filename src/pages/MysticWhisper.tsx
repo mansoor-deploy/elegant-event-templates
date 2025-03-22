@@ -3,12 +3,14 @@ import React, { useEffect, useState, useRef } from "react";
 import CountdownTimer from "@/components/CountdownTimer";
 import GallerySection, { GalleryImage } from "@/components/GallerySection";
 import RsvpForm from "@/components/RsvpForm";
+import { toast } from "@/hooks/use-toast";
 
 const MysticWhisper = () => {
   const [showPage, setShowPage] = useState(false);
   const [showAudioMessage, setShowAudioMessage] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const [showSymbolMessage, setShowSymbolMessage] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
   
@@ -75,6 +77,21 @@ const MysticWhisper = () => {
       setIsPlaying(false);
     }
     setShowVideo(!showVideo);
+  };
+
+  // Show symbol message
+  const handleSymbolClick = (message: string) => {
+    setShowSymbolMessage(message);
+    setTimeout(() => {
+      setShowSymbolMessage(null);
+    }, 3000);
+
+    // Also show toast message
+    toast({
+      title: "Secret Revealed!",
+      description: message,
+      duration: 5000,
+    });
   };
 
   // Set engagement date (6 months from now)
@@ -155,6 +172,13 @@ const MysticWhisper = () => {
           <a href="#rsvp" className="hover:text-mystic-lavender transition-colors duration-300">RSVP</a>
         </div>
       </nav>
+      
+      {/* Symbol message toast */}
+      {showSymbolMessage && (
+        <div className="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 bg-mystic-purple/90 text-white py-3 px-6 rounded-lg shadow-lg max-w-xs text-center">
+          {showSymbolMessage}
+        </div>
+      )}
       
       {/* Video Modal */}
       {showVideo && (
@@ -363,13 +387,13 @@ const MysticWhisper = () => {
         </div>
       </section>
       
-      {/* Hidden Secrets Section - Easter Eggs */}
+      {/* Hidden Secrets Section - Easter Eggs - Updated to show messages more clearly */}
       <section className="py-20 px-6 mystic-glow">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="mystic-heading text-3xl text-white mb-8">Whispered Secrets</h2>
           <p className="mystic-body text-white/80 mb-12 max-w-2xl mx-auto">
-            Hidden throughout our invitation are mystical symbols. 
-            Click on the symbols below to discover their meaning.
+            Discover the hidden messages behind these mystical symbols. 
+            Click on each symbol to reveal its meaning.
           </p>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -380,22 +404,16 @@ const MysticWhisper = () => {
               { icon: "🌙", message: "Love is the most powerful magic of all" },
               { icon: "🌿", message: "Two hearts beating as one across the cosmos" }
             ].map((item, index) => (
-              <div 
+              <button 
                 key={index}
-                className="group relative rounded-md overflow-hidden cursor-pointer aspect-square flex items-center justify-center perspective-500"
+                onClick={() => handleSymbolClick(item.message)}
+                className="mystic-card p-6 hover:bg-mystic-purple/30 transition-colors duration-300"
               >
-                <div className="transition-all duration-700 transform preserve-3d group-hover:rotateY-180 w-full h-full">
-                  {/* Front side */}
-                  <div className="absolute inset-0 backface-hidden flex items-center justify-center bg-mystic-midnight/70 border border-mystic-lavender/30 rounded-md">
-                    <span className="text-4xl">{item.icon}</span>
-                  </div>
-                  
-                  {/* Back side - the hidden message */}
-                  <div className="absolute inset-0 backface-hidden rotateY-180 flex items-center justify-center p-4 bg-mystic-purple/50 backdrop-blur-sm rounded-md">
-                    <p className="text-sm text-white mystic-body">{item.message}</p>
-                  </div>
+                <div className="flex flex-col items-center gap-4">
+                  <span className="text-4xl">{item.icon}</span>
+                  <p className="text-white text-sm">Click to reveal</p>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -421,7 +439,7 @@ const MysticWhisper = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="mystic-subheading text-mystic-lavender mb-1">The Celebration</h2>
-            <h3 className="mystic-heading text-3xl md:text-4xl text-white">Ethereal Details</h3>
+            <h3 className="mystic-heading text-3xl md:text-4xl text-white">Event Details</h3>
           </div>
           
           <div className="grid md:grid-cols-2 gap-10">
@@ -444,10 +462,10 @@ const MysticWhisper = () => {
               <h3 className="mystic-subheading text-mystic-lavender mb-4">The Celebration</h3>
               <div className="space-y-4">
                 <p className="mystic-body text-white/90">
-                  <span className="text-mystic-lavender">Attire:</span> Formal attire
+                  <span className="text-mystic-lavender">Details:</span> Dinner and celebration
                 </p>
                 <p className="mystic-body text-white/90">
-                  <span className="text-mystic-lavender">Experience:</span> Ceremony, dinner, and dancing
+                  <span className="text-mystic-lavender">Experience:</span> Ceremony followed by reception
                 </p>
                 <p className="mystic-body text-white/90">
                   <span className="text-mystic-lavender">Gift:</span> Your presence is our present
@@ -468,14 +486,14 @@ const MysticWhisper = () => {
         </div>
       </section>
       
-      {/* Footer */}
-      <footer className="py-10 px-6 bg-gradient-to-t from-mystic-purple/30 to-transparent text-white text-center">
+      {/* Footer - Improved visibility */}
+      <footer className="py-10 px-6 bg-gradient-to-t from-mystic-purple/60 to-mystic-midnight text-white text-center">
         <div className="max-w-4xl mx-auto">
-          <h2 className="mystic-subheading text-3xl mb-4">Luna & Artemis</h2>
-          <p className="mystic-body text-white/80 mb-4">
+          <h2 className="mystic-heading text-3xl mb-4 text-white">Luna & Artemis</h2>
+          <p className="mystic-body text-white mb-4 text-lg">
             "Two souls intertwined by the threads of fate, dancing together through the tapestry of existence."
           </p>
-          <div className="h-0.5 w-16 bg-mystic-lavender/50 mx-auto"></div>
+          <div className="h-0.5 w-16 bg-mystic-lavender mx-auto"></div>
         </div>
       </footer>
       
@@ -514,6 +532,26 @@ const MysticWhisper = () => {
         
         .animate-particle-flow {
           animation: particleAnimation 3s ease-out forwards;
+        }
+        
+        .mystic-card {
+          @apply bg-mystic-midnight/70 backdrop-blur-sm border border-mystic-lavender/30 rounded-md p-6 shadow-lg;
+        }
+        
+        .mystic-button {
+          @apply px-6 py-3 bg-gradient-to-r from-mystic-purple/70 to-mystic-lavender/70 text-white rounded-md hover:from-mystic-purple hover:to-mystic-lavender transition-all duration-300 shadow-lg;
+        }
+        
+        .mystic-glow {
+          position: relative;
+        }
+        
+        .mystic-glow::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle at center, rgba(155, 141, 224, 0.15) 0%, transparent 70%);
+          pointer-events: none;
         }
         `}
       </style>

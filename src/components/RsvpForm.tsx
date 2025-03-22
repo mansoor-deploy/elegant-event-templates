@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 
 type RsvpFormProps = {
   className?: string;
@@ -9,6 +9,7 @@ type RsvpFormProps = {
 };
 
 const RsvpForm = ({ className, variant = "luxe" }: RsvpFormProps) => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,8 +32,12 @@ const RsvpForm = ({ className, variant = "luxe" }: RsvpFormProps) => {
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
-      toast.success("RSVP submitted successfully!", {
+      
+      // Show success toast
+      toast({
+        title: "RSVP Submitted Successfully!",
         description: "Thank you for your response. We look forward to celebrating with you!",
+        duration: 5000,
       });
       
       // Reset form
