@@ -1,14 +1,15 @@
-
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import CountdownTimer from "@/components/CountdownTimer";
 import GallerySection, { GalleryImage } from "@/components/GallerySection";
 import RsvpForm from "@/components/RsvpForm";
+import { Film } from "lucide-react";
 
 const MysticWhisper = () => {
   const [showPage, setShowPage] = useState(false);
   const [showAudioMessage, setShowAudioMessage] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
   
@@ -67,6 +68,16 @@ const MysticWhisper = () => {
     }
   };
 
+  // Toggle video modal
+  const toggleVideo = () => {
+    // Pause background audio if it's playing
+    if (audioRef.current && isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    }
+    setShowVideo(!showVideo);
+  };
+
   // Set engagement date (6 months from now)
   const engagementDate = new Date();
   engagementDate.setMonth(engagementDate.getMonth() + 6);
@@ -106,7 +117,7 @@ const MysticWhisper = () => {
   ];
 
   return (
-    <div className={`relative min-h-screen bg-mystic-midnight ${showPage ? 'page-transition show' : 'page-transition'}`}>
+    <div className={`relative min-h-screen bg-mystic-midnight overflow-x-hidden ${showPage ? 'page-transition show' : 'page-transition'}`}>
       {/* Magic cursor follower */}
       <div 
         ref={cursorRef}
@@ -137,19 +148,52 @@ const MysticWhisper = () => {
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-mystic-purple/10 to-transparent"></div>
       <div className="absolute top-1/3 left-0 w-full h-60 bg-gradient-to-r from-mystic-lavender/5 via-transparent to-mystic-lavender/5 blur-3xl"></div>
       
-      {/* Navigation */}
-      <nav className="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-10 bg-gradient-to-b from-mystic-midnight/80 to-transparent backdrop-blur-sm">
-        <div>
-          <Link to="/" className="text-white hover:text-mystic-lavender transition-colors duration-300">
-            ← Back to Templates
-          </Link>
-        </div>
+      {/* Navigation - Removed Back to Templates link */}
+      <nav className="absolute top-0 left-0 w-full p-6 flex justify-center items-center z-10 bg-gradient-to-b from-mystic-midnight/80 to-transparent backdrop-blur-sm">
         <div className="flex space-x-6 text-white">
           <a href="#story" className="hover:text-mystic-lavender transition-colors duration-300">Our Tale</a>
           <a href="#gallery" className="hover:text-mystic-lavender transition-colors duration-300">Gallery</a>
           <a href="#rsvp" className="hover:text-mystic-lavender transition-colors duration-300">RSVP</a>
         </div>
       </nav>
+      
+      {/* Video button */}
+      <button 
+        onClick={toggleVideo}
+        className="fixed bottom-6 left-6 z-50 bg-mystic-lavender text-white rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:shadow-lg hover:bg-mystic-lavender/80 transition-all duration-300"
+        aria-label="Play couple's message"
+      >
+        <Film size={20} />
+      </button>
+      
+      {/* Video Modal */}
+      {showVideo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-6">
+          <div className="bg-mystic-midnight/90 border border-mystic-lavender/30 backdrop-blur-md rounded-lg p-6 max-w-3xl w-full mystic-glow">
+            <h3 className="mystic-heading text-2xl text-white mb-4 text-center">Our Message To You</h3>
+            
+            <div className="relative w-full rounded-md overflow-hidden aspect-video mb-6">
+              <iframe 
+                className="absolute inset-0 w-full h-full"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
+                title="A message from the couple"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+            
+            <div className="text-center">
+              <button 
+                onClick={toggleVideo}
+                className="mystic-button"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 pb-20 px-6">

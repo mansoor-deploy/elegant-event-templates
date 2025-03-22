@@ -1,12 +1,13 @@
 
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import CountdownTimer from "@/components/CountdownTimer";
 import GallerySection, { GalleryImage } from "@/components/GallerySection";
 import RsvpForm from "@/components/RsvpForm";
+import { Film } from "lucide-react";
 
 const LuxeEmbrace = () => {
   const [showPage, setShowPage] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
   
   useEffect(() => {
     // Delayed animation for page entrance
@@ -16,6 +17,11 @@ const LuxeEmbrace = () => {
     
     return () => clearTimeout(timer);
   }, []);
+
+  // Toggle video modal
+  const toggleVideo = () => {
+    setShowVideo(!showVideo);
+  };
 
   // Set engagement date (6 months from now)
   const engagementDate = new Date();
@@ -56,18 +62,51 @@ const LuxeEmbrace = () => {
   ];
 
   return (
-    <div className={`relative min-h-screen bg-luxe-cream ${showPage ? 'page-transition show' : 'page-transition'}`}>
+    <div className={`relative min-h-screen bg-luxe-cream overflow-x-hidden ${showPage ? 'page-transition show' : 'page-transition'}`}>
       {/* Gold shimmer accents */}
       <div className="absolute top-20 left-10 w-32 h-32 bg-luxe-gold/10 rounded-full blur-2xl"></div>
       <div className="absolute bottom-20 right-10 w-40 h-40 bg-luxe-gold/10 rounded-full blur-2xl"></div>
       
-      {/* Navigation */}
-      <nav className="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-10">
-        <div>
-          <Link to="/" className="text-luxe-burgundy hover:text-luxe-gold transition-colors duration-300">
-            ← Back to Templates
-          </Link>
+      {/* Video button */}
+      <button 
+        onClick={toggleVideo}
+        className="fixed bottom-6 left-6 z-50 bg-luxe-gold text-white rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:shadow-lg hover:bg-luxe-gold/80 transition-all duration-300"
+        aria-label="Play couple's message"
+      >
+        <Film size={20} />
+      </button>
+      
+      {/* Video Modal */}
+      {showVideo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-6">
+          <div className="bg-white/95 border border-luxe-gold/30 backdrop-blur-md rounded-sm p-6 max-w-3xl w-full shadow-lg">
+            <h3 className="luxe-heading text-2xl text-luxe-burgundy mb-4 text-center">Our Personal Invitation</h3>
+            
+            <div className="relative w-full rounded-sm overflow-hidden aspect-video mb-6">
+              <iframe 
+                className="absolute inset-0 w-full h-full"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
+                title="A message from the couple"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+            
+            <div className="text-center">
+              <button 
+                onClick={toggleVideo}
+                className="luxe-button"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
+      )}
+      
+      {/* Navigation - Removed Back to Templates link */}
+      <nav className="absolute top-0 left-0 w-full p-6 flex justify-center items-center z-10">
         <div className="flex space-x-6 text-luxe-burgundy">
           <a href="#story" className="hover:text-luxe-gold transition-colors duration-300">Our Story</a>
           <a href="#gallery" className="hover:text-luxe-gold transition-colors duration-300">Gallery</a>
@@ -82,22 +121,23 @@ const LuxeEmbrace = () => {
           className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center"
           style={{ 
             transform: "scale(1.1)",
-            filter: "brightness(0.9)"
+            filter: "brightness(0.8)"
           }}
         ></div>
         <div className="absolute inset-0 bg-gradient-to-t from-luxe-cream via-transparent to-transparent"></div>
         
-        <div className="relative z-10 text-center px-6 transform -translate-y-10">
-          <div className="inline-block mb-4 animate-fade-in">
+        {/* Added a semi-transparent background to the text container for better visibility */}
+        <div className="relative z-10 text-center px-6 transform -translate-y-10 max-w-3xl mx-auto">
+          <div className="inline-block mb-4 animate-fade-in bg-black/20 backdrop-blur-sm p-4 rounded-sm">
             <div className="luxe-shimmer h-0.5 w-32 mx-auto"></div>
-            <p className="luxe-subheading text-luxe-burgundy mt-2">Join us for our</p>
+            <p className="luxe-subheading text-white mt-2">Join us for our</p>
           </div>
           
-          <h1 className="luxe-heading text-5xl md:text-7xl text-luxe-burgundy mb-6 animate-fade-in [animation-delay:300ms]">
+          <h1 className="luxe-heading text-5xl md:text-7xl text-white mb-6 animate-fade-in [animation-delay:300ms] text-shadow-lg">
             Sophia & James
           </h1>
           
-          <p className="luxe-subheading text-2xl text-luxe-burgundy mb-8 animate-fade-in [animation-delay:600ms]">
+          <p className="luxe-subheading text-2xl text-white mb-8 animate-fade-in [animation-delay:600ms] bg-black/20 backdrop-blur-sm inline-block px-4 py-2 rounded-sm">
             ARE GETTING ENGAGED
           </p>
           

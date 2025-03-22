@@ -1,12 +1,13 @@
 
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import CountdownTimer from "@/components/CountdownTimer";
 import GallerySection, { GalleryImage } from "@/components/GallerySection";
 import RsvpForm from "@/components/RsvpForm";
+import { Film } from "lucide-react";
 
 const CelestialUnion = () => {
   const [showPage, setShowPage] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
   
   useEffect(() => {
     // Delayed animation for page entrance
@@ -17,76 +18,109 @@ const CelestialUnion = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Toggle video modal
+  const toggleVideo = () => {
+    setShowVideo(!showVideo);
+  };
+
   // Set engagement date (6 months from now)
   const engagementDate = new Date();
   engagementDate.setMonth(engagementDate.getMonth() + 6);
 
-  // Sample gallery images
+  // Sample gallery images for celestial theme
   const galleryImages: GalleryImage[] = [
     { 
-      src: "https://images.unsplash.com/photo-1532970936611-5e9a6b0429f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", 
+      src: "https://images.unsplash.com/photo-1540198163009-7afda7da2945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", 
       alt: "Starry night", 
       caption: "Under the stars" 
     },
     { 
-      src: "https://images.unsplash.com/photo-1548509925-0d51b5177572?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", 
-      alt: "Galaxy", 
-      caption: "Our universe" 
-    },
-    { 
-      src: "https://images.unsplash.com/photo-1510925758641-869d353cecc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", 
-      alt: "Moonlight", 
-      caption: "Moonlit proposal" 
-    },
-    { 
-      src: "https://images.unsplash.com/photo-1515513284007-89a2fb0a2a70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", 
+      src: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", 
       alt: "Northern lights", 
-      caption: "Aurora adventure" 
+      caption: "Aurora dreams" 
     },
     { 
-      src: "https://images.unsplash.com/photo-1479267658415-ff274a213280?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", 
-      alt: "Cosmos", 
-      caption: "Celestial celebration" 
-    },
-    { 
-      src: "https://images.unsplash.com/photo-1596818531679-96bb2687f4d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", 
-      alt: "Comet", 
+      src: "https://images.unsplash.com/photo-1536697246787-1f7ae568d89a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", 
+      alt: "Constellations", 
       caption: "Cosmic connection" 
+    },
+    { 
+      src: "https://images.unsplash.com/photo-1543722530-d2c3201371e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", 
+      alt: "Space", 
+      caption: "Infinite journey" 
+    },
+    { 
+      src: "https://images.unsplash.com/photo-1528722828814-77b9b83aafb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", 
+      alt: "Moon", 
+      caption: "Lunar love" 
+    },
+    { 
+      src: "https://images.unsplash.com/photo-1532981434728-a2706e808d74?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", 
+      alt: "Galaxy", 
+      caption: "Galactic romance" 
     },
   ];
 
   return (
-    <div className={`relative min-h-screen bg-celestial-navy ${showPage ? 'page-transition show' : 'page-transition'}`}>
-      {/* Animated stars background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1534447677768-be436bb09401?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center opacity-30"></div>
-        
-        {/* Star particles */}
-        {Array.from({ length: 50 }).map((_, index) => (
-          <div
-            key={index}
-            className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
-            }}
-          />
-        ))}
-      </div>
+    <div className={`relative min-h-screen bg-celestial-navy overflow-x-hidden ${showPage ? 'page-transition show' : 'page-transition'}`}>
+      {/* Celestial background effects */}
+      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center opacity-40"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-celestial-navy/80 via-celestial-navy/40 to-celestial-navy/90"></div>
       
-      {/* Glowing orbs */}
-      <div className="absolute top-1/4 left-1/4 w-40 h-40 bg-celestial-purple/20 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-1/4 right-1/3 w-60 h-60 bg-celestial-blue/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      {/* Floating stars */}
+      {Array.from({ length: 50 }).map((_, index) => (
+        <div
+          key={index}
+          className="absolute w-1 h-1 bg-white rounded-full opacity-80 animate-twinkle"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            animationDuration: `${2 + Math.random() * 3}s`,
+            animationDelay: `${Math.random() * 5}s`
+          }}
+        />
+      ))}
       
-      {/* Navigation */}
-      <nav className="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-10 bg-celestial-navy/30 backdrop-blur-sm">
-        <div>
-          <Link to="/" className="text-white hover:text-celestial-purple transition-colors duration-300">
-            ← Back to Templates
-          </Link>
+      {/* Video button */}
+      <button 
+        onClick={toggleVideo}
+        className="fixed bottom-6 left-6 z-50 bg-celestial-purple text-white rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:shadow-lg hover:bg-celestial-purple/80 transition-all duration-300"
+        aria-label="Play couple's message"
+      >
+        <Film size={20} />
+      </button>
+      
+      {/* Video Modal */}
+      {showVideo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-6">
+          <div className="bg-celestial-navy/90 border border-celestial-purple/30 backdrop-blur-md rounded-lg p-6 max-w-3xl w-full celestial-glow">
+            <h3 className="celestial-heading text-2xl text-white mb-4 text-center">Our Cosmic Message</h3>
+            
+            <div className="relative w-full rounded-lg overflow-hidden aspect-video mb-6">
+              <iframe 
+                className="absolute inset-0 w-full h-full"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
+                title="A message from the couple"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+            
+            <div className="text-center">
+              <button 
+                onClick={toggleVideo}
+                className="celestial-button"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
+      )}
+      
+      {/* Navigation - Removed Back to Templates link */}
+      <nav className="absolute top-0 left-0 w-full p-6 flex justify-center items-center z-10">
         <div className="flex space-x-6 text-white">
           <a href="#story" className="hover:text-celestial-purple transition-colors duration-300">Our Journey</a>
           <a href="#gallery" className="hover:text-celestial-purple transition-colors duration-300">Gallery</a>
@@ -95,36 +129,43 @@ const CelestialUnion = () => {
       </nav>
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center pt-20 pb-20 px-6">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-20 px-6">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -inset-10 opacity-30 bg-gradient-radial from-celestial-purple/30 via-transparent to-transparent blur-xl"></div>
+          <div className="absolute -inset-10 opacity-20 bg-gradient-radial from-celestial-blue/30 via-transparent to-transparent blur-xl" style={{ top: '30%', left: '60%' }}></div>
+        </div>
+        
         <div className="relative z-10 text-center max-w-3xl mx-auto">
-          <div className="inline-block mb-8 animate-fade-in">
-            <div className="h-0.5 w-20 bg-celestial-purple mx-auto"></div>
-            <p className="celestial-subheading text-white mt-3">CELESTIAL UNION</p>
+          <div className="inline-block mb-6 animate-fade-in">
+            <div className="flex justify-center">
+              <div className="w-20 h-20 relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-celestial-blue to-celestial-purple rounded-full animate-pulse-glow blur-md"></div>
+                <div className="absolute inset-2 bg-gradient-to-r from-celestial-blue to-celestial-purple rounded-full opacity-70"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-white text-xl">✨</span>
+                </div>
+              </div>
+            </div>
+            <p className="celestial-subheading text-white/80 mt-4">You are invited to celebrate</p>
           </div>
           
-          <h1 className="celestial-heading text-5xl md:text-7xl text-white mb-8 animate-fade-in [animation-delay:300ms]">
+          <h1 className="celestial-heading text-5xl md:text-7xl text-white mb-8 animate-fade-in [animation-delay:300ms] text-shadow-lg">
             Nova & Orion
           </h1>
           
           <p className="celestial-body text-white/90 text-xl mb-10 animate-fade-in [animation-delay:600ms]">
-            Two stars aligned across the cosmos, destined to celebrate their celestial engagement
+            as the stars align for our cosmic engagement
           </p>
           
-          <div className="space-y-4 animate-fade-in [animation-delay:900ms]">
-            <p className="celestial-body text-white text-xl">JANUARY 21, 2024</p>
-            <p className="celestial-body text-white text-lg mb-8">PLANETARY OBSERVATORY, SUMMIT PEAK</p>
-            <a href="#rsvp" className="celestial-button inline-block">
-              JOIN OUR CELESTIAL CELEBRATION
-            </a>
-          </div>
-        </div>
-        
-        {/* Floating orb decoration */}
-        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-60 h-60">
-          <div className="relative w-full h-full">
-            <div className="absolute inset-0 rounded-full border border-white/20 animate-rotate-slow"></div>
-            <div className="absolute inset-2 rounded-full border border-white/15 animate-rotate-slow" style={{ animationDirection: 'reverse', animationDuration: '25s' }}></div>
-            <div className="absolute inset-4 rounded-full border border-white/10 animate-rotate-slow" style={{ animationDuration: '30s' }}></div>
+          <div className="space-y-8 animate-fade-in [animation-delay:900ms]">
+            <p className="celestial-subheading text-celestial-silver text-xl">JANUARY 21, 2024</p>
+            <p className="celestial-body text-white/80 text-lg">THE OBSERVATORY, STELLAR HEIGHTS</p>
+            
+            <div className="flex justify-center">
+              <a href="#rsvp" className="celestial-button">
+                JOIN OUR ORBIT
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -132,7 +173,7 @@ const CelestialUnion = () => {
       {/* Countdown Section */}
       <section className="py-20 px-6 celestial-glow">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="celestial-heading text-3xl text-white mb-12">Cosmic Countdown</h2>
+          <h2 className="celestial-heading text-3xl text-white mb-12">Countdown to Liftoff</h2>
           <CountdownTimer targetDate={engagementDate} variant="celestial" />
         </div>
       </section>
@@ -141,76 +182,77 @@ const CelestialUnion = () => {
       <section id="story" className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <div className="h-0.5 w-20 bg-celestial-purple mx-auto mb-3"></div>
             <h2 className="celestial-heading text-3xl md:text-4xl text-white">Our Cosmic Journey</h2>
+            <div className="h-0.5 w-24 bg-gradient-to-r from-celestial-blue to-celestial-purple mx-auto mt-4"></div>
           </div>
           
-          {/* Timeline */}
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-celestial-blue via-celestial-purple to-celestial-lightblue"></div>
+          <div className="space-y-16">
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div className="animate-fade-in-left">
+                <div className="relative">
+                  <div className="absolute inset-0 border border-celestial-purple/30 rounded-lg transform translate-x-4 translate-y-4"></div>
+                  <img 
+                    src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                    alt="Galaxy" 
+                    className="w-full h-auto rounded-lg relative z-10 shadow-lg"
+                  />
+                </div>
+              </div>
+              
+              <div className="celestial-card animate-fade-in-right">
+                <h3 className="celestial-subheading text-celestial-purple mb-4">FIRST ENCOUNTER</h3>
+                <p className="celestial-body text-white/80">
+                  In the vast expanse of the universe, our paths crossed at the International Astronomy Convention. 
+                  Nova was presenting her research on exoplanets, while Orion was showcasing his latest photographs 
+                  of distant nebulae. A chance conversation about the Andromeda galaxy sparked a connection that 
+                  transcended space and time.
+                </p>
+              </div>
+            </div>
             
-            {/* Timeline items */}
-            <div className="space-y-20">
-              <div className="relative">
-                <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-celestial-purple rounded-full"></div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="md:text-right md:pr-12 animate-fade-in-left">
-                    <h3 className="celestial-heading text-2xl text-white mb-4">First Encounter</h3>
-                    <p className="celestial-body text-white/80">
-                      We met at the International Space Conference, both presenting our research 
-                      on exoplanetary atmospheres. Our theories complemented each other perfectly, 
-                      much like our personalities.
-                    </p>
-                  </div>
-                  <div className="celestial-card animate-fade-in-right md:mt-10">
-                    <p className="celestial-subheading text-sm text-celestial-lightblue mb-1">MARCH 15, 2021</p>
-                    <p className="celestial-body text-white/90">
-                      "The universe conspires to bring together minds that belong in the same orbit."
-                    </p>
-                  </div>
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div className="celestial-card animate-fade-in-left order-2 md:order-1">
+                <h3 className="celestial-subheading text-celestial-purple mb-4">GRAVITY'S PULL</h3>
+                <p className="celestial-body text-white/80">
+                  Like celestial bodies drawn together by gravitational force, we found ourselves orbiting 
+                  each other's lives. Weekend stargazing dates turned into deep conversations about the 
+                  mysteries of the cosmos and our place within it. With each passing day, the invisible 
+                  force between us grew stronger.
+                </p>
+              </div>
+              
+              <div className="animate-fade-in-right order-1 md:order-2">
+                <div className="relative">
+                  <div className="absolute inset-0 border border-celestial-purple/30 rounded-lg transform -translate-x-4 translate-y-4"></div>
+                  <img 
+                    src="https://images.unsplash.com/photo-1505506874110-6a7a69069a08?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                    alt="Constellation" 
+                    className="w-full h-auto rounded-lg relative z-10 shadow-lg"
+                  />
+                </div>
+              </div>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div className="animate-fade-in-left">
+                <div className="relative">
+                  <div className="absolute inset-0 border border-celestial-purple/30 rounded-lg transform translate-x-4 -translate-y-4"></div>
+                  <img 
+                    src="https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                    alt="Northern lights" 
+                    className="w-full h-auto rounded-lg relative z-10 shadow-lg"
+                  />
                 </div>
               </div>
               
-              <div className="relative">
-                <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-celestial-purple rounded-full"></div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="celestial-card animate-fade-in-left md:mt-10">
-                    <p className="celestial-subheading text-sm text-celestial-lightblue mb-1">AUGUST 23, 2022</p>
-                    <p className="celestial-body text-white/90">
-                      "Two souls, like binary stars, forever bound by an invisible force."
-                    </p>
-                  </div>
-                  <div className="md:pl-12 animate-fade-in-right">
-                    <h3 className="celestial-heading text-2xl text-white mb-4">Gravity Bound</h3>
-                    <p className="celestial-body text-white/80">
-                      After a year of research collaborations that took us from observatories 
-                      in Chile to space centers in Japan, we realized our connection transcended 
-                      professional admiration. Under a meteor shower in New Zealand, we shared our first kiss.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="relative">
-                <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-celestial-purple rounded-full"></div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="md:text-right md:pr-12 animate-fade-in-left">
-                    <h3 className="celestial-heading text-2xl text-white mb-4">Stellar Proposal</h3>
-                    <p className="celestial-body text-white/80">
-                      During the rare alignment of Jupiter and Saturn, Orion arranged a private viewing 
-                      at the Planetary Observatory. As the celestial bodies converged, he presented Nova 
-                      with a ring containing a fragment of a meteorite—a piece of the cosmos to symbolize 
-                      their cosmic bond.
-                    </p>
-                  </div>
-                  <div className="celestial-card animate-fade-in-right md:mt-10">
-                    <p className="celestial-subheading text-sm text-celestial-lightblue mb-1">NOVEMBER 18, 2023</p>
-                    <p className="celestial-body text-white/90">
-                      "In all the vastness of space and the infinity of time, finding you was the greatest improbability."
-                    </p>
-                  </div>
-                </div>
+              <div className="celestial-card animate-fade-in-right">
+                <h3 className="celestial-subheading text-celestial-purple mb-4">COSMIC PROPOSAL</h3>
+                <p className="celestial-body text-white/80">
+                  Under the dancing lights of the aurora borealis in Iceland, Orion knelt before Nova with 
+                  a ring inspired by Saturn's bands. As the green and purple lights painted the sky above, 
+                  he asked her to embark on their greatest adventure yet—a lifetime together exploring the 
+                  wonders of the universe as one.
+                </p>
               </div>
             </div>
           </div>
@@ -221,10 +263,10 @@ const CelestialUnion = () => {
       <section id="gallery" className="py-20 px-6 celestial-glow">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <div className="h-0.5 w-20 bg-celestial-purple mx-auto mb-3"></div>
-            <h2 className="celestial-heading text-3xl md:text-4xl text-white">Astral Memories</h2>
+            <h2 className="celestial-heading text-3xl md:text-4xl text-white">Celestial Moments</h2>
+            <div className="h-0.5 w-24 bg-gradient-to-r from-celestial-blue to-celestial-purple mx-auto mt-4"></div>
             <p className="celestial-body text-white/80 mt-4 max-w-2xl mx-auto">
-              Captured moments from our journey across the cosmos.
+              Capturing the light of our journey across the cosmos.
             </p>
           </div>
           
@@ -236,43 +278,43 @@ const CelestialUnion = () => {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <div className="h-0.5 w-20 bg-celestial-purple mx-auto mb-3"></div>
-            <h2 className="celestial-heading text-3xl md:text-4xl text-white">Event Coordinates</h2>
+            <h2 className="celestial-heading text-3xl md:text-4xl text-white">Stellar Details</h2>
+            <div className="h-0.5 w-24 bg-gradient-to-r from-celestial-blue to-celestial-purple mx-auto mt-4"></div>
           </div>
           
           <div className="grid md:grid-cols-2 gap-10">
             <div className="celestial-card animate-fade-in">
-              <h3 className="celestial-heading text-2xl text-white mb-4">Time & Space</h3>
+              <h3 className="celestial-subheading text-celestial-purple mb-4">THE CEREMONY</h3>
               <div className="space-y-4">
                 <p className="celestial-body text-white/90">
-                  <span className="text-celestial-lightblue">Date:</span> January 21, 2024
+                  <span className="text-celestial-purple">Date:</span> January 21, 2024
                 </p>
                 <p className="celestial-body text-white/90">
-                  <span className="text-celestial-lightblue">Time:</span> 7:00 PM - Cosmic Alignment
+                  <span className="text-celestial-purple">Time:</span> 7:00 PM (During peak stargazing hours)
                 </p>
                 <p className="celestial-body text-white/90">
-                  <span className="text-celestial-lightblue">Venue:</span> Planetary Observatory
+                  <span className="text-celestial-purple">Venue:</span> The Observatory
                 </p>
                 <p className="celestial-body text-white/90">
-                  <span className="text-celestial-lightblue">Location:</span> Summit Peak, 123 Stellar Way
+                  <span className="text-celestial-purple">Address:</span> 1234 Stellar Heights, Galaxy View
                 </p>
               </div>
             </div>
             
             <div className="celestial-card animate-fade-in [animation-delay:300ms]">
-              <h3 className="celestial-heading text-2xl text-white mb-4">Celestial Notes</h3>
+              <h3 className="celestial-subheading text-celestial-purple mb-4">THE CELEBRATION</h3>
               <div className="space-y-4">
                 <p className="celestial-body text-white/90">
-                  <span className="text-celestial-lightblue">Attire:</span> Cosmic Elegant (Celestial blues, purples, and silver encouraged)
+                  <span className="text-celestial-purple">Reception:</span> Immediately following in the Nebula Ballroom
                 </p>
                 <p className="celestial-body text-white/90">
-                  <span className="text-celestial-lightblue">Experience:</span> Interactive stargazing and a holographic celestial display
+                  <span className="text-celestial-purple">Attire:</span> Celestial Formal (Blues, purples, silvers encouraged)
                 </p>
                 <p className="celestial-body text-white/90">
-                  <span className="text-celestial-lightblue">Atmosphere:</span> Temperature-controlled dome with panoramic sky views
+                  <span className="text-celestial-purple">Activities:</span> Telescope viewing, interactive space exhibit
                 </p>
                 <p className="celestial-body text-white/90">
-                  <span className="text-celestial-lightblue">Transport:</span> Shuttle service available from Downtown Stellar Station
+                  <span className="text-celestial-purple">Note:</span> Dancing under the stars will commence at 9 PM
                 </p>
               </div>
             </div>
@@ -281,20 +323,20 @@ const CelestialUnion = () => {
       </section>
       
       {/* RSVP Section */}
-      <section id="rsvp" className="py-20 px-6 celestial-glow">
+      <section id="rsvp" className="py-20 px-6">
         <div className="max-w-xl mx-auto">
           <RsvpForm variant="celestial" />
         </div>
       </section>
       
       {/* Footer */}
-      <footer className="py-10 px-6 bg-celestial-blue/20 text-white text-center backdrop-blur-sm">
+      <footer className="py-10 px-6 bg-gradient-to-t from-celestial-blue/30 to-transparent text-white text-center">
         <div className="max-w-4xl mx-auto">
-          <p className="celestial-heading mb-2">NOVA & ORION</p>
+          <h2 className="celestial-heading text-2xl mb-4">Nova & Orion</h2>
           <p className="celestial-body text-white/80 mb-4">
-            "In all the vast cosmos, we found each other. Join us as we celebrate this celestial union."
+            "Two stars, one constellation, forever aligned"
           </p>
-          <div className="h-0.5 w-16 bg-celestial-purple mx-auto"></div>
+          <div className="h-0.5 w-16 bg-celestial-purple/50 mx-auto"></div>
         </div>
       </footer>
     </div>

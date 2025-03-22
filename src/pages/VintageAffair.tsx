@@ -1,13 +1,14 @@
 
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import CountdownTimer from "@/components/CountdownTimer";
 import GallerySection, { GalleryImage } from "@/components/GallerySection";
 import RsvpForm from "@/components/RsvpForm";
+import { Film } from "lucide-react";
 
 const VintageAffair = () => {
   const [showPage, setShowPage] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
   const audioRef = React.useRef<HTMLAudioElement>(null);
   
   useEffect(() => {
@@ -28,6 +29,16 @@ const VintageAffair = () => {
       }
       setAudioPlaying(!audioPlaying);
     }
+  };
+
+  // Toggle video modal
+  const toggleVideo = () => {
+    // Pause background audio if it's playing
+    if (audioRef.current && audioPlaying) {
+      audioRef.current.pause();
+      setAudioPlaying(false);
+    }
+    setShowVideo(!showVideo);
   };
 
   // Set engagement date (6 months from now)
@@ -69,7 +80,7 @@ const VintageAffair = () => {
   ];
 
   return (
-    <div className={`relative min-h-screen bg-vintage-paper vintage-grain ${showPage ? 'page-transition show' : 'page-transition'}`}>
+    <div className={`relative min-h-screen bg-vintage-paper vintage-grain overflow-x-hidden ${showPage ? 'page-transition show' : 'page-transition'}`}>
       {/* Background audio - hidden */}
       <audio ref={audioRef} loop className="hidden">
         <source src="https://soundcloud.com/jazzy-piano-music/sets/relaxing-jazz-piano-music" type="audio/mpeg" />
@@ -89,13 +100,46 @@ const VintageAffair = () => {
         </svg>
       </button>
       
-      {/* Navigation */}
-      <nav className="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-10">
-        <div>
-          <Link to="/" className="text-vintage-sepia hover:text-vintage-sepia/70 transition-colors duration-300 vintage-body">
-            ← Back to Templates
-          </Link>
+      {/* Video button */}
+      <button 
+        onClick={toggleVideo}
+        className="fixed bottom-6 left-6 z-50 bg-vintage-sepia text-vintage-cream rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-300"
+        aria-label="Play couple's message"
+      >
+        <Film size={20} />
+      </button>
+      
+      {/* Video Modal */}
+      {showVideo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-6">
+          <div className="bg-vintage-paper border-2 border-vintage-sepia/30 p-6 max-w-3xl w-full shadow-lg">
+            <h3 className="vintage-heading text-2xl text-vintage-sepia mb-4 text-center">A Message From Us</h3>
+            
+            <div className="relative w-full overflow-hidden aspect-video mb-6">
+              <iframe 
+                className="absolute inset-0 w-full h-full"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
+                title="A message from the couple"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+            
+            <div className="text-center">
+              <button 
+                onClick={toggleVideo}
+                className="vintage-button"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
+      )}
+      
+      {/* Navigation - Removed Back to Templates link */}
+      <nav className="absolute top-0 left-0 w-full p-6 flex justify-center items-center z-10">
         <div className="flex space-x-6 text-vintage-sepia vintage-body">
           <a href="#story" className="hover:text-vintage-sepia/70 transition-colors duration-300">Our Story</a>
           <a href="#gallery" className="hover:text-vintage-sepia/70 transition-colors duration-300">Gallery</a>
