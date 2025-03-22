@@ -1,9 +1,8 @@
+
 import React, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
 import CountdownTimer from "@/components/CountdownTimer";
 import GallerySection, { GalleryImage } from "@/components/GallerySection";
 import RsvpForm from "@/components/RsvpForm";
-import { Film } from "lucide-react";
 
 const MysticWhisper = () => {
   const [showPage, setShowPage] = useState(false);
@@ -117,7 +116,7 @@ const MysticWhisper = () => {
   ];
 
   return (
-    <div className={`relative min-h-screen bg-mystic-midnight overflow-x-hidden ${showPage ? 'page-transition show' : 'page-transition'}`}>
+    <div className={`relative min-h-screen bg-mystic-midnight overflow-hidden ${showPage ? 'page-transition show' : 'page-transition'}`}>
       {/* Magic cursor follower */}
       <div 
         ref={cursorRef}
@@ -148,7 +147,7 @@ const MysticWhisper = () => {
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-mystic-purple/10 to-transparent"></div>
       <div className="absolute top-1/3 left-0 w-full h-60 bg-gradient-to-r from-mystic-lavender/5 via-transparent to-mystic-lavender/5 blur-3xl"></div>
       
-      {/* Navigation - Removed Back to Templates link */}
+      {/* Navigation */}
       <nav className="absolute top-0 left-0 w-full p-6 flex justify-center items-center z-10 bg-gradient-to-b from-mystic-midnight/80 to-transparent backdrop-blur-sm">
         <div className="flex space-x-6 text-white">
           <a href="#story" className="hover:text-mystic-lavender transition-colors duration-300">Our Tale</a>
@@ -156,15 +155,6 @@ const MysticWhisper = () => {
           <a href="#rsvp" className="hover:text-mystic-lavender transition-colors duration-300">RSVP</a>
         </div>
       </nav>
-      
-      {/* Video button */}
-      <button 
-        onClick={toggleVideo}
-        className="fixed bottom-6 left-6 z-50 bg-mystic-lavender text-white rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:shadow-lg hover:bg-mystic-lavender/80 transition-all duration-300"
-        aria-label="Play couple's message"
-      >
-        <Film size={20} />
-      </button>
       
       {/* Video Modal */}
       {showVideo && (
@@ -378,8 +368,8 @@ const MysticWhisper = () => {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="mystic-heading text-3xl text-white mb-8">Whispered Secrets</h2>
           <p className="mystic-body text-white/80 mb-12 max-w-2xl mx-auto">
-            Hidden throughout our invitation are mystical symbols and messages. 
-            Discover them to unlock the deeper meanings of our journey.
+            Hidden throughout our invitation are mystical symbols. 
+            Click on the symbols below to discover their meaning.
           </p>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -436,7 +426,7 @@ const MysticWhisper = () => {
           
           <div className="grid md:grid-cols-2 gap-10">
             <div className="mystic-card animate-fade-in">
-              <h3 className="mystic-subheading text-mystic-lavender mb-4">Sacred Ceremony</h3>
+              <h3 className="mystic-subheading text-mystic-lavender mb-4">The Ceremony</h3>
               <div className="space-y-4">
                 <p className="mystic-body text-white/90">
                   <span className="text-mystic-lavender">When:</span> February 14, 2024 at 8:00 PM
@@ -447,26 +437,23 @@ const MysticWhisper = () => {
                 <p className="mystic-body text-white/90">
                   <span className="text-mystic-lavender">Address:</span> Moonlight Vale, Hidden Path 21
                 </p>
-                <p className="mystic-body text-white/90">
-                  <span className="text-mystic-lavender">Phase:</span> Full Moon in Virgo
-                </p>
               </div>
             </div>
             
             <div className="mystic-card animate-fade-in [animation-delay:300ms]">
-              <h3 className="mystic-subheading text-mystic-lavender mb-4">Mystical Details</h3>
+              <h3 className="mystic-subheading text-mystic-lavender mb-4">The Celebration</h3>
               <div className="space-y-4">
                 <p className="mystic-body text-white/90">
-                  <span className="text-mystic-lavender">Attire:</span> Ethereal Formal (Flowing fabrics in celestial hues)
+                  <span className="text-mystic-lavender">Attire:</span> Formal attire
                 </p>
                 <p className="mystic-body text-white/90">
-                  <span className="text-mystic-lavender">Experience:</span> Crystal blessing ceremony, enchanted feast, astral meditation
+                  <span className="text-mystic-lavender">Experience:</span> Ceremony, dinner, and dancing
                 </p>
                 <p className="mystic-body text-white/90">
-                  <span className="text-mystic-lavender">Offerings:</span> Each guest will receive a blessed crystal as a memento
+                  <span className="text-mystic-lavender">Gift:</span> Your presence is our present
                 </p>
                 <p className="mystic-body text-white/90">
-                  <span className="text-mystic-lavender">Note:</span> The venue is accessible through a portal that opens at sunset
+                  <span className="text-mystic-lavender">Note:</span> Please RSVP by January 15
                 </p>
               </div>
             </div>
@@ -493,7 +480,8 @@ const MysticWhisper = () => {
       </footer>
       
       {/* CSS for 3D card effect */}
-      <style jsx>{`
+      <style>
+        {`
         .perspective-500 {
           perspective: 500px;
         }
@@ -527,7 +515,8 @@ const MysticWhisper = () => {
         .animate-particle-flow {
           animation: particleAnimation 3s ease-out forwards;
         }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 };

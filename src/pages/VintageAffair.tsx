@@ -80,7 +80,7 @@ const VintageAffair = () => {
   ];
 
   return (
-    <div className={`relative min-h-screen bg-vintage-paper vintage-grain overflow-x-hidden ${showPage ? 'page-transition show' : 'page-transition'}`}>
+    <div className={`relative min-h-screen bg-vintage-paper vintage-grain overflow-hidden ${showPage ? 'page-transition show' : 'page-transition'}`}>
       {/* Background audio - hidden */}
       <audio ref={audioRef} loop className="hidden">
         <source src="https://soundcloud.com/jazzy-piano-music/sets/relaxing-jazz-piano-music" type="audio/mpeg" />
@@ -138,7 +138,7 @@ const VintageAffair = () => {
         </div>
       )}
       
-      {/* Navigation - Removed Back to Templates link */}
+      {/* Navigation */}
       <nav className="absolute top-0 left-0 w-full p-6 flex justify-center items-center z-10">
         <div className="flex space-x-6 text-vintage-sepia vintage-body">
           <a href="#story" className="hover:text-vintage-sepia/70 transition-colors duration-300">Our Story</a>
@@ -321,13 +321,13 @@ const VintageAffair = () => {
                   <strong>Reception:</strong> Following the ceremony
                 </p>
                 <p className="vintage-body text-vintage-sepia/90">
-                  <strong>Attire:</strong> Vintage Formal (1920s-1950s inspired attire encouraged)
+                  <strong>Attire:</strong> Formal attire
                 </p>
                 <p className="vintage-body text-vintage-sepia/90">
-                  <strong>Music:</strong> Live jazz ensemble
+                  <strong>Music:</strong> Live music
                 </p>
                 <p className="vintage-body text-vintage-sepia/90">
-                  <strong>Note:</strong> Photography with our vintage camera station welcome
+                  <strong>Note:</strong> Photography welcome
                 </p>
               </div>
             </div>
